@@ -2,4 +2,17 @@
     <h1>Résultat de la requête API :</h1>
     <p>{{ apiData | json }}</p>
 </div>
+
+
+
+<div *ngFor="let questionnaire of apiData">
+    <h2>{{ questionnaire.name }}</h2>
+    <p>{{ questionnaire.purpose }}</p>
+    <div *ngFor="let item of questionnaire.item">
+      <h3>{{ item.enableWhen[0]?.question }}</h3>
+      <input type="text" [(ngModel)]="item.enableWhen[0].answerString" /> <!--answerString doit tjrs être défini-->
+    </div>
+  </div>
   
+
+
