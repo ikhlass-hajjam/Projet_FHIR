@@ -7,14 +7,17 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./questionnaire.component.css']
 })
 export class QuestionnaireComponent implements OnInit {
-  apiUrl = 'https://fhir.alliance4u.io/api/patient';
+  //regarder si un questionnaire dispo, si oui lafficher
+  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire?status=active';
   apiData: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get(this.apiUrl).subscribe((data) => {
-      this.apiData = data;
-    });
+    let idPatient="64f1fba11baf0c0018445640";
+    let idMedecin;
+    this.http.get(this.apiUrlPatient).subscribe((data : any) => {
+        this.apiData=data;      
+      });
+    } 
   }
-}
