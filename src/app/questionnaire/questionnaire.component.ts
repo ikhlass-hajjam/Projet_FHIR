@@ -15,8 +15,10 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     let idPatient="64f1fba11baf0c0018445640";
-    let idMedecin;
+    
     this.http.get(this.apiUrlPatient).subscribe((data : any) => {
+        let idMedecin= data[0].publisher;
+        console.log(idMedecin);
         this.apiData=data;      
       });
     } 
