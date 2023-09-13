@@ -29,10 +29,11 @@ export class QuestionnaireComponent implements OnInit {
 
   }
 
-  updateValue2(event: Event): void {
+  updateValueSlider(event: Event,index:number): void {
     // Récupérer la valeur du curseur à partir de l'événement
     const sliderValue = (event.target as HTMLInputElement).value;
-    console.log('Valeur du curseur :', sliderValue);
+    this.apiData.item[index].value = sliderValue;
+    console.log('MAJ Data', this.apiData);
     // Faites ce que vous voulez avec la valeur du curseur ici
   }
 

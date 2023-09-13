@@ -9,7 +9,7 @@
         <h3>{{ apiData.item[i].text }}</h3>
         <div *ngIf="apiData.item[i].type == 'boolean'">
             <form id="booleanItem{{apiData.item[i]}}">
-                <mat-radio-group name="question{{i}}" (change)="updateValue()" [(ngModel)]="apiData.item[i].value">
+                <mat-radio-group name="question{{i}}" [(ngModel)]="apiData.item[i].value">
                     <mat-radio-button labelPosition="after" id="Oui{{i}}" value="oui" >Oui</mat-radio-button>
                     <mat-radio-button labelPosition="after" id="Non{{i}}" value="non">Non</mat-radio-button>
                 </mat-radio-group>
@@ -31,7 +31,7 @@
         </div>
         <div *ngIf="item.type == 'integer'">
             <form id="integerItem{{apiData.item[i]}}">
-                <mat-slider id="{{i}}" min="0" max="10" step="1" (change)="updateValue()"   (input)="updateValue2($event)" showTickMarks discrete>
+                <mat-slider id="{{i}}" min="0" max="10" step="1"  (input)="updateValueSlider($event,i)" showTickMarks discrete>
                     <input matSliderThumb value="sliderValue">
                   </mat-slider>
             </form>
