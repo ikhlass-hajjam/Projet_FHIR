@@ -7,37 +7,36 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./questionnaire.component.css']
 })
 export class QuestionnaireComponent implements OnInit {
-  apiUrlQuestionnaire = 'https://fhir.alliance4u.io/api/questionnaire/5';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
-  apiUrlReponse='https://fhir.alliance4u.io/api/questionnaire-response';
+  //regarder si un questionnaire dispo, si oui lafficher
+  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire/5';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
   apiData: any;
-  idPatient="64f1fba11baf0c0018445640";
-  questionnaireId="";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    
-    this.http.get(this.apiUrlQuestionnaire).subscribe((data : any) => {
-        let idMedecin= data.publisher;
-                
-        console.log(idMedecin);
+    let idPatient="64f1fba11baf0c0018445640";
 
+    this.http.get(this.apiUrlPatient).subscribe((data : any) => {
+        let idMedecin= data.publisher;
+        console.log(idMedecin);
         this.apiData=data;
-        
-              
+        console.log(this.apiData);
       });
+  }
+
+  updateValue(){
+    console.log("value",this.apiData);
+
+  }
+
+  updateValue2(event: Event): void {
+    // Récupérer la valeur du curseur à partir de l'événement
+    const sliderValue = (event.target as HTMLInputElement).value;
+    console.log('Valeur du curseur :', sliderValue);
+    // Faites ce que vous voulez avec la valeur du curseur ici
   }
 
   onButtonClick() { 
     console.log("event clic"); 
-    //lire les reponses renseignées
-    //formater le type questionnaire-reponse
-    //envoyer la reponse
-    
-    /*
-    let data="";
-    this.http.post(this.apiUrlReponse, data);
-    */
-
   } 
 }

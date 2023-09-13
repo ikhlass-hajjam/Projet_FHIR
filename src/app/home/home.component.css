@@ -4,10 +4,21 @@
 
 .custom-toolbar-row{
     color: white; /* Définissez la couleur du texte si nécessaire */
-    background:#3c90e0 ;
+    background:#1a60a1e1  ;
 }
 
 .custom-toolbar{
     color: white; /* Définissez la couleur du texte si nécessaire */
     background:#1a60a1 ;
+}
+
+.custom-icon {
+    font-size: -100px;
+    color: #3f51b5; /* Couleur bleue par exemple */
+  }
+  
+.welcome-text {
+font-size: 24px;
+font-weight: bold;
+font-family: monospace;
 }

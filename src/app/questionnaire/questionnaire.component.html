@@ -1,43 +1,76 @@
-<div>
-  <h1>Questionnaire :</h1>
-  <p>{{ apiData | json }}</p>
-</div>
+<div *ngIf="apiData">
+    <div>
+        <h1>Questionnaire :</h1>
+        <p>{{ apiData | json }}</p>
+    </div>
 
-
-<p>{{ apiData.purpose }}</p>
-<div *ngFor="let item of apiData.item">
-  <h3>{{ item.text }}</h3>
-  <div *ngIf="item.type == 'boolean'">
-      <form>
-          <div>
-              <input type="radio" id="Oui{{item.linkId}}" value="Oui" />
-              <label for="Oui">Oui</label>
-          </div>
-          <div>
-              <input type="radio" id="Non{{item.linkId}}" value="Non" />
-              <label for="Non">Non</label>
-          </div>
-      </form>
-  </div>
-  <div *ngIf="item.type == 'group'">
-      <div *ngFor="let subItem of item.item">
-          <h4>{{ subItem.text }}</h4>
-          <div *ngIf="subItem.type == 'string'">
-              <form>
-                  <div>
-                      <input type="text" id="text{{subItem.linkId}}" value="text" />
-                  </div>
-              </form>
-          </div>
-          <div *ngIf="subItem.type == 'date'">
-              <form>
-                  <div>
-                      <input type="date" id="date{{subItem.linkId}}" value="2023-09-13" />
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div>
+    <p>{{ apiData.purpose }}</p>
+    <div *ngFor="let item of apiData.item, index as i">
+        <h3>{{ apiData.item[i].text }}</h3>
+        <div *ngIf="apiData.item[i].type == 'boolean'">
+            <form id="booleanItem{{apiData.item[i]}}">
+                <mat-radio-group name="question{{i}}" (change)="updateValue()" [(ngModel)]="apiData.item[i].value">
+                    <mat-radio-button labelPosition="after" id="Oui{{i}}" value="oui" >Oui</mat-radio-button>
+                    <mat-radio-button labelPosition="after" id="Non{{i}}" value="non">Non</mat-radio-button>
+                </mat-radio-group>
+            </form>
+        </div>
+        <div *ngIf="apiData.item[i].type == 'string'">
+            <form id="stringItem{{apiData.item[i]}}">
+                <div>
+                    <input type="text" id="text{{apiData.item[i]}}" value="insérer le texte" />
+                </div>
+            </form>
+        </div>
+        <div *ngIf="item.type == 'date'">
+            <form id="dateItem{{apiData.item[i]}}">
+                <div>
+                    <input type="date" id="date{{apiData.item[i]}}" value="2023-09-13" />
+                </div>
+            </form>
+        </div>
+        <div *ngIf="item.type == 'integer'">
+            <form id="integerItem{{apiData.item[i]}}">
+                <mat-slider id="{{i}}" min="0" max="10" step="1" (change)="updateValue()"   (input)="updateValue2($event)" showTickMarks discrete>
+                    <input matSliderThumb value="sliderValue">
+                  </mat-slider>
+            </form>
+        </div>
+        <div *ngIf="item.type == 'group'">
+            <div *ngFor="let subItem of item.item, index as j">
+                <h4>{{ subItem.text }}</h4>
+                <div *ngIf="subItem.type == 'string'">
+                    <form id="stringSubItem{{subItem[j]}}">
+                        <div>
+                            <input type="text" id="text{{subItem[j]}}" value="insérer le texte" />
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="subItem.type == 'date'">
+                    <form id="dateSubItem{{subItem.linkId[j]}}">
+                        <div>
+                            <input type="date" id="date{{subItem[j]}}" value="2023-09-13" />
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="subItem.type == 'boolean'">
+                    <form id="booleanItem{{apiData.subItem[j]}}">
+                        <mat-radio-group name="question{{j}}" (change)="updateValue()" [(ngModel)]="apiData.subItem[j].value">
+                            <mat-radio-button labelPosition="after" id="Oui{{j}}" value="oui">Oui</mat-radio-button>
+                            <mat-radio-button labelPosition="after" id="Non{{j}}" value="non">Non</mat-radio-button>
+                        </mat-radio-group>
+                    </form>
+                </div>
+                <div *ngIf="subItem.type == 'integer'">
+                    <form id="integerSubItem{{subItem[i]}}">
+                        <div *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]">
+                            <mat-radio-button labelPosition="after" id="integer{{subItem[i]}}">{{n}}</mat-radio-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </div>
+    <button (click)="onButtonClick()">Envoyer les reponses</button>
 </div>
-<br><br>
-<button (click)="onButtonClick()">Envoyer les reponses</button>
