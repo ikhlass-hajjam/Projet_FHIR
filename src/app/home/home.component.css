@@ -1,3 +1,13 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+
+.custom-toolbar-row{
+    color: white; /* Définissez la couleur du texte si nécessaire */
+    background:#3c90e0 ;
+}
+
+.custom-toolbar{
+    color: white; /* Définissez la couleur du texte si nécessaire */
+    background:#1a60a1 ;
+}

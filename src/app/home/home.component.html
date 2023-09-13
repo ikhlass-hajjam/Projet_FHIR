@@ -1,31 +1,26 @@
-<p>home works!</p>
-<p>
-    <mat-toolbar color="primary">
+<div>
+    <mat-toolbar color="primary" class="custom-toolbar">
       <button (click)="AfficheSousMenu()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon >menu</mat-icon>
       </button>
       <span>My Profil</span>
       <span class="example-spacer"></span>
     </mat-toolbar>
-</p>
-
+</div>
 
 <div *ngIf="sousMenu">
-  <p>
-    <mat-toolbar color="primary">
-      <mat-toolbar-row>
+    <mat-toolbar color="second">
+      <mat-toolbar-row class="custom-toolbar-row">
         <button (click)="redirectToQuestionnaire()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon >menu</mat-icon>
+            <mat-icon >quiz</mat-icon>
           </button>
           <span>My Quizz</span>
           <span class="example-spacer"></span>
       </mat-toolbar-row>
     </mat-toolbar>
-  </p>
 </div>
 
 
 
 
-<button (click)="redirectToQuestionnaire()">Accéder au questionnaire</button>
 
