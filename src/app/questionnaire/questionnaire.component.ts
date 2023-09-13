@@ -14,7 +14,7 @@ export class QuestionnaireComponent implements OnInit {
   apiData: any;
   idPatient="64f1fba11baf0c0018445640";
   questionnaireId="";
-  repondu=[];
+  repondu:String[]=[];
 
   constructor(private http: HttpClient) { }
 
@@ -42,6 +42,7 @@ export class QuestionnaireComponent implements OnInit {
     //lire les reponses renseignées
     //formater le type questionnaire-reponse
     //envoyer la reponse
+    
     /*
     let data="";
     this.http.post(this.apiUrlReponse, data);
