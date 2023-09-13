@@ -10,11 +10,11 @@
   <div *ngIf="item.type == 'boolean'">
       <form>
           <div>
-              <input type="radio" id="Oui" value="Oui" />
+              <input type="radio" id="Oui{{item.linkId}}" value="Oui" />
               <label for="Oui">Oui</label>
           </div>
           <div>
-              <input type="radio" id="Non" value="Non" />
+              <input type="radio" id="Non{{item.linkId}}" value="Non" />
               <label for="Non">Non</label>
           </div>
       </form>
@@ -25,14 +25,14 @@
           <div *ngIf="subItem.type == 'string'">
               <form>
                   <div>
-                      <input type="text" id="text" value="text" />
+                      <input type="text" id="text{{subItem.linkId}}" value="text" />
                   </div>
               </form>
           </div>
           <div *ngIf="subItem.type == 'date'">
               <form>
                   <div>
-                      <input type="date" id="text" value="2023-09-13" />
+                      <input type="date" id="date{{subItem.linkId}}" value="2023-09-13" />
                   </div>
               </form>
           </div>
