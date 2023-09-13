@@ -10,8 +10,8 @@
         <div *ngIf="apiData.item[i].type == 'boolean'">
             <form id="booleanItem{{apiData.item[i]}}">
                 <mat-radio-group name="question{{i}}" [(ngModel)]="apiData.item[i].value">
-                    <mat-radio-button labelPosition="after" id="Oui{{i}}" value="oui" >Oui</mat-radio-button>
-                    <mat-radio-button labelPosition="after" id="Non{{i}}" value="non">Non</mat-radio-button>
+                    <mat-radio-button labelPosition="after" id="Oui{{i}}" value="oui" (change)="updateValue($event,i)">Oui</mat-radio-button>
+                    <mat-radio-button labelPosition="after" id="Non{{i}}" value="non" (change)="updateValue($event,i)">Non</mat-radio-button>
                 </mat-radio-group>
             </form>
         </div>
@@ -55,9 +55,9 @@
                 </div>
                 <div *ngIf="subItem.type == 'boolean'">
                     <form id="booleanItem{{apiData.subItem[j]}}">
-                        <mat-radio-group name="question{{j}}" (change)="updateValue()" [(ngModel)]="apiData.subItem[j].value">
-                            <mat-radio-button labelPosition="after" id="Oui{{j}}" value="oui">Oui</mat-radio-button>
-                            <mat-radio-button labelPosition="after" id="Non{{j}}" value="non">Non</mat-radio-button>
+                        <mat-radio-group name="question{{j}}"  [(ngModel)]="apiData.subItem[j].value">
+                            <mat-radio-button   labelPosition="after" id="Oui{{j}}" value="oui" >Ouuuuuuuuuuui</mat-radio-button>
+                            <mat-radio-button  labelPosition="after" id="Non{{j}}" value="non" >Non</mat-radio-button>
                         </mat-radio-group>
                     </form>
                 </div>
