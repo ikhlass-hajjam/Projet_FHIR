@@ -8,22 +8,42 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuestionnaireComponent implements OnInit {
   //regarder si un questionnaire dispo, si oui lafficher
-  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire/4';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
+  apiUrlQuestionnaire = 'https://fhir.alliance4u.io/api/questionnaire/4';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
+  apiUrlReponse='https://fhir.alliance4u.io/api/questionnaire-response';
   apiData: any;
+  idPatient="64f1fba11baf0c0018445640";
+  questionnaireId="";
+  repondu=[];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    let idPatient="64f1fba11baf0c0018445640";
     
-    this.http.get(this.apiUrlPatient).subscribe((data : any) => {
+    this.http.get(this.apiUrlQuestionnaire).subscribe((data : any) => {
         let idMedecin= data.publisher;
-        console.log(idMedecin);
-        this.apiData=data;      
+
+        if(this.repondu.includes(data.id)){
+          this.apiData="Pas de nouveau formulaire";
+        }else{
+          this.repondu.push(data.id);
+        
+          console.log(idMedecin);
+  
+  
+          this.apiData=data;
+        }
+              
       });
   }
 
   onButtonClick() { 
     console.log("event clic"); 
+    //lire les reponses renseignées
+    //formater le type questionnaire-reponse
+    //envoyer la reponse
+    /*
+    let data="";
+    this.http.post(this.apiUrlReponse, data);
+    */
   } 
 }
