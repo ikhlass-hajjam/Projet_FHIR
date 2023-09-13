@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuestionnaireComponent implements OnInit {
   //regarder si un questionnaire dispo, si oui lafficher
-  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire?status=active';
+  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire/4';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
   apiData: any;
 
   constructor(private http: HttpClient) { }
@@ -17,9 +17,13 @@ export class QuestionnaireComponent implements OnInit {
     let idPatient="64f1fba11baf0c0018445640";
     
     this.http.get(this.apiUrlPatient).subscribe((data : any) => {
-        let idMedecin= data[0].publisher;
+        let idMedecin= data.publisher;
         console.log(idMedecin);
         this.apiData=data;      
       });
-    } 
   }
+
+  onButtonClick() { 
+    console.log("event clic"); 
+  } 
+}
