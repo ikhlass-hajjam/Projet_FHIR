@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { QuestionnaireResponse } from '../questionnaire';
+import { Questionnaire, QuestionnaireResponse } from '../questionnaire';
 import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
@@ -12,6 +12,7 @@ export class QuestionnaireComponent implements OnInit {
   //regarder si un questionnaire dispo, si oui lafficher
   //apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire/65003ac27a32ea001909459f';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
   apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire?status=active';
+  apiUrlQuestionnaire = 'https://fhir.alliance4u.io/api/questionnaire/'
   apiData: any;
   questionnaireRep: QuestionnaireResponse = new QuestionnaireResponse();
   apiUrlQuestionnaireRep = 'https://fhir.alliance4u.io/api/questionnaire-response'
@@ -19,15 +20,15 @@ export class QuestionnaireComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    let idPatient="64f1fba11baf0c0018445640";
+    let idPatient="64f1fba11baf0c0018445640"; //Alexandre Receveur
 
     this.http.get(this.apiUrlPatient).subscribe((data : any) => {
         let idMedecin= data.publisher;
-        this.apiData=data;
+        this.apiData=data[0];
         this.apiData.status="retired"  //desactivé le questionnaire une fois répondu
         this.questionnaireRep.questionnaire = data.id;
         console.log(data.id)
-        this.questionnaireRep.status="in-progress";
+        this.questionnaireRep.status="completed";
         this.questionnaireRep.id = Math.floor(Math.random() * 10000000000000).toString();
         this.questionnaireRep.author.identifier.value=data.publisher;
         this.questionnaireRep.source.identifier.value=idPatient
@@ -128,6 +129,10 @@ export class QuestionnaireComponent implements OnInit {
     }
     this.http.post<QuestionnaireResponse>(this.apiUrlQuestionnaireRep, this.questionnaireRep, httpoptions).subscribe((data) => {
       console.log('successfully Added')
+    })
+
+    this.http.put<Questionnaire>(this.apiUrlQuestionnaire+this.apiData.id, this.apiData, httpoptions).subscribe((data) => {
+      console.log('successfully modified')
     })
   } 
 
