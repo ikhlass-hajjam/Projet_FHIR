@@ -131,6 +131,7 @@ export class QuestionnaireComponent implements OnInit {
     this.http.post<QuestionnaireResponse>(this.apiUrlQuestionnaireRep, this.questionnaireRep, httpoptions).subscribe((data) => {
       console.log('successfully Added')
       alert('Le questionnaire a bien été envoyé à votre médecin :D ');
+      document.location.href="/";
     })
 
     this.http.put<Questionnaire>(this.apiUrlQuestionnaire+this.apiData.id, this.apiData, httpoptions).subscribe((data) => {
