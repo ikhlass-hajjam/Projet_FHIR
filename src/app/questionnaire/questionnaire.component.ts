@@ -26,13 +26,14 @@ export class QuestionnaireComponent implements OnInit {
         let idMedecin= data.publisher;
         this.apiData=data[0];
         this.apiData.status="retired"  //desactivé le questionnaire une fois répondu
-        this.questionnaireRep.questionnaire = data.id;
+        //this.questionnaireRep.questionnaire = data.id;
         console.log(data.id)
         this.questionnaireRep.status="completed";
         this.questionnaireRep.id = Math.floor(Math.random() * 10000000000000).toString();
         this.questionnaireRep.author.identifier.value=data.publisher;
-        this.questionnaireRep.source.identifier.value=idPatient
-        this.questionnaireRep.source.id=idPatient
+        this.questionnaireRep.source.identifier.value=idPatient;
+        this.questionnaireRep.questionnaire=this.apiData.id;
+        this.questionnaireRep.source.id=idPatient;
 
         this.questionnaireRep.item = [
           {

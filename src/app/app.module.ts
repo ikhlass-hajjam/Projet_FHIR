@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {MatSliderModule} from '@angular/material/slider';
     MatButtonModule,
     MatRadioModule,
     MatSliderModule,
+    MatCardModule,
 
     RouterModule.forRoot([
       {
