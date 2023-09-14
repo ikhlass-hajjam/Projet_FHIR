@@ -24,6 +24,7 @@ export class QuestionnaireComponent implements OnInit {
     this.http.get(this.apiUrlPatient).subscribe((data : any) => {
         let idMedecin= data.publisher;
         this.apiData=data;
+        this.apiData.status="retired"  //desactivé le questionnaire une fois répondu
         this.questionnaireRep.questionnaire = data.id;
         console.log(data.id)
         this.questionnaireRep.status="in-progress";
