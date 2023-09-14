@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { QuestionnaireResponse } from '../questionnaire';
 import { MatRadioChange } from '@angular/material/radio';
 
@@ -10,9 +10,11 @@ import { MatRadioChange } from '@angular/material/radio';
 })
 export class QuestionnaireComponent implements OnInit {
   //regarder si un questionnaire dispo, si oui lafficher
-  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire/5';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
+  //apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire/65003ac27a32ea001909459f';//'https://fhir.alliance4u.io/api/questionnaire?status=active';
+  apiUrlPatient = 'https://fhir.alliance4u.io/api/questionnaire?status=active';
   apiData: any;
   questionnaireRep: QuestionnaireResponse = new QuestionnaireResponse();
+  apiUrlQuestionnaireRep = 'https://fhir.alliance4u.io/api/questionnaire-response'
 
   constructor(private http: HttpClient) { }
 
@@ -23,9 +25,13 @@ export class QuestionnaireComponent implements OnInit {
         let idMedecin= data.publisher;
         this.apiData=data;
         this.questionnaireRep.questionnaire = data.id;
+        console.log(data.id)
         this.questionnaireRep.status="in-progress";
         this.questionnaireRep.id = Math.floor(Math.random() * 10000000000000).toString();
         this.questionnaireRep.author.identifier.value=data.publisher;
+        this.questionnaireRep.source.identifier.value=idPatient
+        this.questionnaireRep.source.id=idPatient
+
         this.questionnaireRep.item = [
           {
               "linkId": "1",
@@ -67,33 +73,21 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   updateValue(event: MatRadioChange,index:number ){
-    // console.log("value",this.apiData);
-    // console.log(event)
     if(event.value == "oui") {
-      // console.log("true")
-      // console.log(this.questionnaireRep)
       this.questionnaireRep.item[index].answer[0].valueBoolean = true
+      console.log(this.questionnaireRep)
     } else if (event.value == "non") {
-      // console.log("false")
       this.questionnaireRep.item[index].answer[0].valueBoolean = false
+      console.log(this.questionnaireRep)
     }
-    // const value = (event.target as HTMLInputElement).value;
-    //this.questionnaireRep.item[index].answer[0].valueBoolean = value
-    //console.log(value)
-    // console.log (event.target)
-    console.log(this.questionnaireRep)
-
-
   }
 
   updateValueSlider(event: Event,index:number): void {
     // Récupérer la valeur du curseur à partir de l'événement
     const sliderValue = (event.target as HTMLInputElement).value;
     this.apiData.item[index].value = sliderValue;
-    // console.log(this.questionnaireRep)
-    this.questionnaireRep.item[0].answer[0].valueInteger = index;
+    this.questionnaireRep.item[0].answer[0].valueInteger = parseInt(sliderValue);
     console.log(this.questionnaireRep)
-  
   }
 
 
@@ -103,7 +97,7 @@ export class QuestionnaireComponent implements OnInit {
 
   onButtonClick() { 
     console.log("event clic"); 
-    let items: any;
+   /* let items: any;
    
     for(let itemQ of this.apiData.item){
       let answerQR : any;
@@ -124,8 +118,16 @@ export class QuestionnaireComponent implements OnInit {
       status : "completed",
       item : items
     }
-    console.log("questionnaireResponse",questionnaireResponse)
-    //this.http.post(this.apiUrlReponse, dataRep);
+    console.log("questionnaireResponse",questionnaireResponse)*/
+    console.log(this.questionnaireRep)
+    var httpoptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+    this.http.post<QuestionnaireResponse>(this.apiUrlQuestionnaireRep, this.questionnaireRep, httpoptions).subscribe((data) => {
+      console.log('successfully Added')
+    })
   } 
 
 
